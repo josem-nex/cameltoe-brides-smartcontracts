@@ -7,6 +7,7 @@ Standard: ERC721 (https://eips.ethereum.org/EIPS/eip-721)
 - ERC721 (https://docs.openzeppelin.com/contracts/5.x/api/token/erc721#ERC721) para implementar el estándar ERC721.
 - ERC721URIStorage (https://docs.openzeppelin.com/contracts/5.x/api/token/erc721#ERC721URIStorage) para almacenar los URIs de los tokens.
 - ERC2981 (https://docs.openzeppelin.com/contracts/5.x/api/token/common#ERC2981) para implementar el estándar EIP-2981. ??? considerar ERC721Royalty (https://docs.openzeppelin.com/contracts/5.x/api/token/erc721#ERC721Royalty) para ERC721.
+  - Royalty "consensus" (https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments)
 
 ## CrossMintNFT721.sol
 

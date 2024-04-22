@@ -208,7 +208,7 @@ contract Collection is ERC721, ERC721URIStorage, Ownable, ERC2981 {
     /**
     @dev This function sets the default royalty fee for a receiver.
     @param _receiver The address of the receiver to set the default royalty fee for.
-    @param _feeNumerator The royalty fee numerator to set for the receiver.
+    @param _feeNumerator The royalty fee numerator to set for the receiver. 10000 is 100%. 500 is 5%.
     @notice Requires the function to be called by the contract owner.
     */
     function setDefaultRoyalty(
