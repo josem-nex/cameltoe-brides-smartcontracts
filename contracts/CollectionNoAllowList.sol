@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -14,6 +15,7 @@ contract MyToken is
     ERC721Enumerable,
     ERC721URIStorage,
     ERC721Pausable,
+    ERC721Royalty,
     Ownable
 {
     using Strings for uint256;
@@ -34,8 +36,24 @@ contract MyToken is
     string private baseExtension;
 
     constructor(
-        address initialOwner
-    ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+        string memory name,
+        string memory symbol,
+        uint256 _maxSupply,
+        uint256 _maxMintPerAddress,
+        string memory baseURI,
+        string memory extension, //  usually ".json"
+        uint256 _pricePublicMint,
+        uint8 _priceIncrement, // 20 = 20%, 100 = 100%
+        uint96 _royaltyFee // 10000 = 100%,  500 = 5%
+    ) ERC721(name, symbol) Ownable(msg.sender) {
+        _setDefaultRoyalty(msg.sender, _royaltyFee); // 5%
+        maxSupply = _maxSupply;
+        maxMintPerAddress = _maxMintPerAddress;
+        currentBaseURI = baseURI;
+        baseExtension = extension;
+        pricePublicMint = _pricePublicMint;
+        priceIncrement = _priceIncrement;
+    }
 
     function pause() public onlyOwner {
         _pause();
@@ -110,7 +128,7 @@ contract MyToken is
     )
         public
         view
-        override(ERC721, ERC721Enumerable, ERC721URIStorage)
+        override(ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Royalty)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
