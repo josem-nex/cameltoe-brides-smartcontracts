@@ -20,6 +20,8 @@ contract MyToken is
 {
     using Strings for uint256;
 
+    event NFTMinted(address indexed to, uint256 indexed tokenId);
+
     uint256 public maxSupply;
     uint256 private _nextTokenId;
 
@@ -85,6 +87,7 @@ contract MyToken is
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, thistokenURI);
         countMinted[msg.sender] += 1;
+        emit NFTMinted(msg.sender, tokenId);
     }
 
     function setBaseURI(string memory baseURI) external onlyOwner {
