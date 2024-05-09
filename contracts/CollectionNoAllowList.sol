@@ -20,16 +20,16 @@ contract MyToken is
 {
     using Strings for uint256;
 
-    uint256 public maxSupply = 10;
+    uint256 public maxSupply;
     uint256 private _nextTokenId;
 
-    uint256 public pricePublicMint = 0.01 ether;
-    uint256 private priceIncrement = 20; //porcentual increment
+    uint256 public pricePublicMint;
+    uint256 private priceIncrement; //porcentual increment
 
     bool private publicMintOpen = false;
 
     mapping(address => uint256) private countMinted;
-    uint256 private maxMintPerAddress = 2;
+    uint256 private maxMintPerAddress;
 
     // token uri section
     string public currentBaseURI;
@@ -132,5 +132,8 @@ contract MyToken is
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
+    }
+    function setRoyaltyFee(uint96 _royaltyFee, address _to) public onlyOwner {
+        _setDefaultRoyalty(_to, _royaltyFee);
     }
 }
