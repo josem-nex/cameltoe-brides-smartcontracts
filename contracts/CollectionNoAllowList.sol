@@ -18,13 +18,13 @@ contract MyToken is
 {
     using Strings for uint256;
 
-    uint256 maxSupply = 10000;
+    uint256 public maxSupply = 10;
     uint256 private _nextTokenId;
 
-    uint256 private pricePublicMint = 0.01 ether;
+    uint256 public pricePublicMint = 0.01 ether;
     uint256 private priceIncrement = 20; //porcentual increment
 
-    bool public publicMintOpen = false;
+    bool private publicMintOpen = false;
 
     mapping(address => uint256) private countMinted;
     uint256 private maxMintPerAddress = 2;
