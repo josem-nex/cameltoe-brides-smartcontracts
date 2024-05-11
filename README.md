@@ -11,5 +11,9 @@ yarn hardhat help
 yarn hardhat test
 REPORT_GAS=true yarn hardhat test
 yarn hardhat node
-yarn hardhat ignition deploy ./ignition/modules/Lock.js
+yarn hardhat run scripts/deployERC721.js --network networkname
 ```
+
+# Configuration
+
+Configure the network in `hardhat.config.js` file.

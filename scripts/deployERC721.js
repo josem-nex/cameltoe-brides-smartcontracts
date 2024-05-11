@@ -22,13 +22,15 @@ async function main() {
 
     console.log("Collection was deployed to: ", myTokenDeployed.address);
 
-    // verify if the network is not local: hardhat verify --network networkName contractAddress args
+    // verify if the network is not local: 
     /* await myTokenDeployed.deployTransaction.wait(10);
     await verify(myTokenDeployed.address, ["MyToken", "MT", 5, 1, "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/", ".json", 100000000000, 20, 500]);
+    // if not working, try this command line: yarn hardhat verify --network networkName contractAddress args
     */
 
 
-
+    //In this section you can interact with the methods of the deployed contract.
+    // myTokenDeployed.methodName( args );
 }
 
 async function verify(contractAddress, args) {
