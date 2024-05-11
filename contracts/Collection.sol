@@ -71,12 +71,12 @@ contract Collection is
 
     function publicMint() public payable {
         require(publicMintOpen, "Public Mint is not open");
-        require(msg.value == pricePublicMint, "Incorrect amount");
         require(totalSupply() < maxSupply, "Token limit reached");
         require(
             countMinted[msg.sender] < maxMintPerAddress,
             "Max mint per address reached"
         );
+        require(msg.value == pricePublicMint, "Incorrect amount");
 
         pricePublicMint = (pricePublicMint * (priceIncrement + 100)) / 100;
 
