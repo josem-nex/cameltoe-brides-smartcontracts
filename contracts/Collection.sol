@@ -3,7 +3,6 @@
 pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
@@ -12,7 +11,6 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Collection is
     ERC721,
-    ERC721Enumerable,
     ERC721URIStorage,
     ERC721Pausable,
     ERC721Royalty,
@@ -20,9 +18,11 @@ contract Collection is
 {
     using Strings for uint256;
 
+    // Event emitted when a new NFT is minted
     event NFTMinted(address indexed to, uint256 indexed tokenId);
 
     uint256 public maxSupply;
+    uint256 public totalSupply = 0;
     uint256 private _nextTokenId;
 
     uint256 public pricePublicMint;
@@ -71,7 +71,7 @@ contract Collection is
 
     function publicMint() public payable {
         require(publicMintOpen, "Public Mint is not open");
-        require(totalSupply() < maxSupply, "Token limit reached");
+        require(totalSupply < maxSupply, "Token limit reached");
         require(
             countMinted[msg.sender] < maxMintPerAddress,
             "Max mint per address reached"
@@ -105,18 +105,14 @@ contract Collection is
         address to,
         uint256 tokenId,
         address auth
-    )
-        internal
-        override(ERC721, ERC721Enumerable, ERC721Pausable)
-        returns (address)
-    {
+    ) internal override(ERC721, ERC721Pausable) returns (address) {
         return super._update(to, tokenId, auth);
     }
 
     function _increaseBalance(
         address account,
         uint128 value
-    ) internal override(ERC721, ERC721Enumerable) {
+    ) internal override(ERC721) {
         super._increaseBalance(account, value);
     }
 
@@ -131,7 +127,7 @@ contract Collection is
     )
         public
         view
-        override(ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Royalty)
+        override(ERC721, ERC721URIStorage, ERC721Royalty)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
