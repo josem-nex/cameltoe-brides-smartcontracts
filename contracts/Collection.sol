@@ -81,6 +81,7 @@ contract Collection is
         pricePublicMint = (pricePublicMint * (priceIncrement + 100)) / 100;
 
         uint256 tokenId = _nextTokenId++;
+        totalSupply += 1;
         string memory thistokenURI = string(
             abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension)
         );

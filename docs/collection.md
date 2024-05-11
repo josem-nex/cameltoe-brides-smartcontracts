@@ -22,7 +22,7 @@ This contract implements an ERC721 NFT with additional features like pausing the
 - nextTokenId: The ID of the next NFT to be minted.
 - pricePublicMint: The current price to mint an NFT during the public mint. Given in wei. 1 ether = 10^18 wei.
 - priceIncrement: The percentage increment of the public minting price after each mint. Given in percentage. Example: 10 for a 10% increment on each mint, 0 for a fixed price, and 100 for doubling the price.
-- publicMintOpen: Indicates whether the public mint is active.
+- publicMintOpen: Indicates whether the public mint is active. Starts as false.
 - countMinted: A mapping that tracks how many NFTs each address has minted.
 - maxMintPerAddress: The maximum number of NFTs an address can mint.
 - currentBaseURI: The base URI to construct the token URI.
